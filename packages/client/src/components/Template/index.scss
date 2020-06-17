@@ -1,0 +1,10 @@
+.c-Template {
+  width: 100%;
+  min-height: 100%;
+  display: grid;
+  grid-template-columns: min-content auto;
+
+  &__container {
+    padding: 60rem;
+  }
+}

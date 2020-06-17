@@ -1,0 +1,16 @@
+@import "./colors";
+
+html {
+  font-size: 1px;
+}
+
+body {
+  background-color: var(--color-lilac-normal);
+  min-height: 100%;
+  font-size: 16rem;
+}
+
+#root {
+  display: flex;
+  min-height: 100%;
+}
