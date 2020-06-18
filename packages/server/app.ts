@@ -1,7 +1,7 @@
 import express = require('express');
 
 // Create a new express application instance
-const app: express.Application = express();
+const app = express();
 
 app.get('/', function (req, res) {
     res.send('Hello World!');
