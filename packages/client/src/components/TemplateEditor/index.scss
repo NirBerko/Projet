@@ -1,11 +1,23 @@
 .c-Editor {
   padding: 60px;
-  background-color: green;
+  display: grid;
+  grid-template-columns: 1fr;
+
+  &__block {
+    position: relative;
+    &__delete-button {
+      position: absolute;
+      top: -15px;
+      right: -15px;
+    }
+  }
+
   &__drop-indicator {
     width: 100%;
     opacity: 0;
     transition: .2s;
     pointer-events: none;
+    margin-top: 10px;
 
     &[data-visible=true] {
       opacity: 1;

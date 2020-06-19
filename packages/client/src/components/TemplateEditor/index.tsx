@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { WidgetContext, WidgetEventsTypes }       from "../../context/WidgetContext";
 
-import { Message } from 'semantic-ui-react'
+import { Button, Card, Icon, Message } from 'semantic-ui-react'
 
 import { Widget }  from "../Widgets/Widget";
 import { TextBox } from "../blocks/TextBox";
@@ -9,13 +9,30 @@ import { TextBox } from "../blocks/TextBox";
 import "./index.scss";
 
 interface BlockProps {
-    children: React.ReactNode
+    children: React.ReactNode,
+    onDelete: () => any
 }
 
-const Block = ({ children }: BlockProps) => (
-    <div className="c-Editor__block">{children}</div>
-);
+interface IBlock {
+    id: number,
+    type: string
+}
 
+const Block = ({ children, onDelete }: BlockProps) => (
+    <Card className="c-Editor__block" fluid>
+        <Card.Content>
+            <Button icon
+                    size="tiny"
+                    color="red"
+                    circular
+                    onClick={onDelete}
+                    className="c-Editor__block__delete-button">
+                <Icon name="delete" />
+            </Button>
+            {children}
+        </Card.Content>
+    </Card>
+);
 
 const renderBlockType = (type: string) => {
     let component = null;
@@ -30,10 +47,6 @@ const renderBlockType = (type: string) => {
     return component;
 };
 
-interface IBlock {
-    type: string
-}
-
 export const TemplateEditor = () => {
     const [blocks, setBlocks] = useState<IBlock[]>([]);
     const [dropIndicator, setDropIndicator] = useState(false);
@@ -45,6 +58,7 @@ export const TemplateEditor = () => {
         setBlocks([
             ...blocks,
             {
+                id: Math.floor(Math.random() * 100),
                 type
             }
         ])
@@ -64,16 +78,12 @@ export const TemplateEditor = () => {
 
     const onMouseLeave = () => setDropIndicator(false);
 
+    const onDelete = (index: number) => {
+        setBlocks(blocks.filter((_, i) => i !== index))
+    };
+
     return (
         <div className="c-Editor" onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
-            <div className="c-Editor__drop-indicator" data-visible={dropIndicator}>
-                <Message>
-                    <Message.Header>{element?.type}</Message.Header>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi atque aut debitis doloribus dolorum expedita facilis harum incidunt minima minus natus odit officia, officiis quibusdam sequi sit soluta vel veritatis.
-                    </p>
-                </Message>
-            </div>
             {blocks.map((block, index) => {
                 const component = renderBlockType(block.type);
 
@@ -82,11 +92,22 @@ export const TemplateEditor = () => {
                 }
 
                 return (
-                    <Block key={index}>
+                    <Block key={block.id} onDelete={() => onDelete(index)}>
                         {React.createElement(component)}
                     </Block>
                 )
             })}
+
+            <div className="c-Editor__drop-indicator" data-visible={dropIndicator}>
+                <Message>
+                    <Message.Header>{element?.type}</Message.Header>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi atque aut debitis doloribus
+                        dolorum expedita facilis harum incidunt minima minus natus odit officia, officiis quibusdam
+                        sequi sit soluta vel veritatis.
+                    </p>
+                </Message>
+            </div>
         </div>
     )
 };

@@ -1,7 +1,7 @@
 import React, { useState }                from "react";
 import { Editor, EditorState, RichUtils } from 'draft-js';
 
-import { Button }            from "semantic-ui-react";
+import { Button, Icon } from "semantic-ui-react";
 
 import "./index.scss";
 
@@ -19,8 +19,11 @@ export const TextBox = () => {
 
     return (
         <div className="c-TextBox">
-            <Button onClick={makeBold}>Bold</Button>
-            <Editor editorState={editorState} onChange={onChange} />
+            <Button onClick={makeBold} icon size="small">
+                <Icon name='bold' />
+            </Button>
+            <Editor editorState={editorState}
+                    onChange={onChange} />
         </div>
     )
 };
