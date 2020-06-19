@@ -2,5 +2,6 @@
 
 ## How to run this project
 
- 1. `npm run bootstrap` to install all dependencies by Lerna
+ 1. `npm install` to install lerna and other dependencies
+ 1. `npm run bootstrap` to bootstrap your project via Lerna
  2.   `npm start` to start both server and client

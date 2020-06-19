@@ -1,0 +1,22 @@
+.c-Widget {
+  padding: 10px;
+  text-align: center;
+  user-select: none;
+  cursor: move;
+
+  &:hover {
+    background-color: var(--color-lilac-light);
+  }
+
+  &__draggedBlock {
+    display: none;
+    position: absolute;
+    background-color: var(--color-white);
+    box-shadow: 1rem 1rem 5rem rgba(0, 0, 0, 0.1);
+    padding: 5px 16px;
+
+    &[data-visible=true] {
+      display: block;
+    }
+  }
+}

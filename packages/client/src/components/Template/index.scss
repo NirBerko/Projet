@@ -5,6 +5,6 @@
   grid-template-columns: min-content auto;
 
   &__container {
-    padding: 60rem;
+    display: flex;
   }
 }
