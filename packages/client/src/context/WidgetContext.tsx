@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import EventEmitter from "events";
+import EventEmitter                   from "events";
 
 export enum WidgetEventsTypes {
     DROP = "drop"
@@ -8,14 +8,19 @@ export enum WidgetEventsTypes {
 export const WidgetContext: any = React.createContext({});
 
 export const WidgetContextProvider = ({ children }: { children: React.ReactNode }) => {
-    const [target, setTarget] = useState(null);
+    const initialState = {
+        target: null,
+        type  : null
+    };
+
+    const [{ target, type }, setTarget] = useState(initialState);
 
     const widgetEvents: EventEmitter = new EventEmitter();
 
     const onMouseUp = () => {
-        if (target) {
-            widgetEvents.emit(WidgetEventsTypes.DROP, target);
-            setTarget(null);
+        if (target && type) {
+            widgetEvents.emit(WidgetEventsTypes.DROP, { target, type });
+            setTarget(initialState);
         }
     };
 
@@ -27,9 +32,11 @@ export const WidgetContextProvider = ({ children }: { children: React.ReactNode 
 
     return (
         <WidgetContext.Provider value={{
-            target,
-            isDrag: Boolean(target),
-            setTarget,
+            element  : target ? { target, type } : null,
+            isDrag   : target !== null,
+            setTarget: (target: any, type: any) => {
+                setTarget({ target, type })
+            },
             widgetEvents
         }}>
             {children}

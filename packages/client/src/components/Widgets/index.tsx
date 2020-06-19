@@ -6,7 +6,7 @@ import { Widget } from "./Widget";
 export const Widgets = () => {
     return (
         <div className="c-Widgets">
-            <Widget>Text</Widget>
+            <Widget type={Widget.Types.TEXT_BOX}>Text</Widget>
         </div>
     )
 };

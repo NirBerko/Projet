@@ -1,0 +1,14 @@
+.c-Editor {
+  padding: 60px;
+  background-color: green;
+  &__drop-indicator {
+    width: 100%;
+    opacity: 0;
+    transition: .2s;
+    pointer-events: none;
+
+    &[data-visible=true] {
+      opacity: 1;
+    }
+  }
+}

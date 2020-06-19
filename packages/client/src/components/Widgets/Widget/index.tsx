@@ -4,17 +4,19 @@ import { WidgetContext } from "../../../context/WidgetContext";
 
 import "./index.scss";
 
-interface IWidget {
-    children: React.ReactNode
+interface IWidgetProps {
+    children: React.ReactNode,
+    type: string
 }
 
-export const Widget = ({ children }: IWidget) => {
+
+export const Widget = ({ children, type }: IWidgetProps) => {
     const { setTarget, isDrag } = useContext(WidgetContext);
     const draggedRef = useRef(null);
 
     const onMouseDown = () => {
         setTimeout(() => {
-            setTarget(draggedRef.current);
+            setTarget(draggedRef.current, type);
         }, 100)
     };
 
@@ -47,3 +49,7 @@ export const Widget = ({ children }: IWidget) => {
         </>
     )
 };
+
+Widget.Types = {
+    TEXT_BOX: 'textBox'
+} as const;

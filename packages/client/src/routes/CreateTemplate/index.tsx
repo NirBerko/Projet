@@ -3,7 +3,7 @@ import React  from "react";
 import { WidgetContextProvider } from "../../context/WidgetContext";
 
 import { Widgets } from "../../components/Widgets";
-import { Editor }  from "./Editor";
+import { TemplateEditor }  from "../../components/TemplateEditor";
 
 import "./index.scss";
 
@@ -12,7 +12,7 @@ export const CreateTemplate = () => {
         <div className="r-CreateTemplate">
             <WidgetContextProvider>
                 <div className="r-CreateTemplate__template">
-                    <Editor />
+                    <TemplateEditor />
                 </div>
                 <div className="r-CreateTemplate__widgets">
                     <Widgets />
