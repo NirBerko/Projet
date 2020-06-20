@@ -4,7 +4,11 @@ import { Navigation } from "../Navigation";
 
 import "./index.scss";
 
-export const Template = ({ children }: any) => (
+interface ITemplateProps {
+    children: React.ReactNode
+}
+
+export const Template = ({ children }: ITemplateProps) => (
     <nav className="c-Template">
         <Navigation/>
         <div className="c-Template__container">

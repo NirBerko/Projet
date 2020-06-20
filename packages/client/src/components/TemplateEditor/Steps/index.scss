@@ -1,0 +1,32 @@
+.c-TemplateSteps {
+  ul {
+    display: flex;
+    align-items: center;
+    li {
+      display: flex;
+      align-items: center;
+    }
+    li + li {
+      margin-left: 15px;
+      &:before {
+        content: '';
+        display: block;
+        width: 60px;
+        height: 2px;
+        background-color: rgba(0,0,0,0.2);
+        margin-right: 15px;
+      }
+    }
+  }
+
+  &__step-name {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    outline: none;
+    border: 1px solid rgba(0,0,0,0.2);
+    padding: 6px 12px;
+    background: linear-gradient(180deg, #fff, #f8f8f8);
+    cursor: pointer;
+  }
+}

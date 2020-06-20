@@ -1,0 +1,13 @@
+.b-SubTasks {
+  ul {
+    li {
+      display: grid;
+      grid-template-columns: min-content auto min-content;
+      align-items: center;
+      grid-column-gap: 10px;
+      & + li {
+        margin-top: 10px;
+      }
+    }
+  }
+}

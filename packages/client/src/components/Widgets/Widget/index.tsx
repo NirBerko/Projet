@@ -51,5 +51,6 @@ export const Widget = ({ children, type }: IWidgetProps) => {
 };
 
 Widget.Types = {
-    TEXT_BOX: 'textBox'
+    TEXT_BOX: 'textBox',
+    SUB_TASKS: 'subTasks',
 } as const;

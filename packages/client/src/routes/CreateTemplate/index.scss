@@ -4,13 +4,13 @@
   grid-template-columns: auto min-content;
 
 
-
   &__template {
-
+    display: grid;
+    grid-template-columns: 1fr;
   }
 
   &__widgets {
-    background-color: var(--color-white);
+    background-color: var(--color-porcelain-normal);
     width: 100px;
   }
 }

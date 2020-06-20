@@ -3,10 +3,12 @@ import { WidgetContext, WidgetEventsTypes }       from "../../context/WidgetCont
 
 import { Button, Card, Icon, Message } from 'semantic-ui-react'
 
-import { Widget }  from "../Widgets/Widget";
-import { TextBox } from "../blocks/TextBox";
+import { Widget }        from "../Widgets/Widget";
+import { TextBox }       from "../blocks/TextBox";
 
 import "./index.scss";
+import { TemplateSteps } from "./Steps";
+import { SubTasks }      from "../blocks/SubTasks";
 
 interface BlockProps {
     children: React.ReactNode,
@@ -19,14 +21,14 @@ interface IBlock {
 }
 
 const Block = ({ children, onDelete }: BlockProps) => (
-    <Card className="c-Editor__block" fluid>
+    <Card className="c-Editor__editor__block" fluid>
         <Card.Content>
             <Button icon
                     size="tiny"
                     color="red"
                     circular
                     onClick={onDelete}
-                    className="c-Editor__block__delete-button">
+                    className="c-Editor__editor__block__delete-button">
                 <Icon name="delete" />
             </Button>
             {children}
@@ -34,13 +36,18 @@ const Block = ({ children, onDelete }: BlockProps) => (
     </Card>
 );
 
-const renderBlockType = (type: string) => {
+const renderBlockType = (type: string): any => {
     let component = null;
 
     switch (type) {
-        case Widget.Types.TEXT_BOX:
+        case Widget.Types.TEXT_BOX: {
             component = TextBox;
             break;
+        }
+        case Widget.Types.SUB_TASKS: {
+            component = SubTasks;
+            break;
+        }
         default:
     }
 
@@ -54,14 +61,16 @@ export const TemplateEditor = () => {
     const { element, widgetEvents, isDrag } = useContext(WidgetContext);
 
     const onDrop = ({ type }: { type: string }) => {
-        setDropIndicator(false);
-        setBlocks([
-            ...blocks,
-            {
-                id: Math.floor(Math.random() * 100),
-                type
-            }
-        ])
+        if (dropIndicator) {
+            setDropIndicator(false);
+            setBlocks([
+                ...blocks,
+                {
+                    id: Math.floor(Math.random() * 100),
+                    type
+                }
+            ])
+        }
     };
 
     useEffect(() => {
@@ -84,29 +93,34 @@ export const TemplateEditor = () => {
 
     return (
         <div className="c-Editor" onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
-            {blocks.map((block, index) => {
-                const component = renderBlockType(block.type);
+            <div className="c-Editor__steps">
+                <TemplateSteps />
+            </div>
+            <div className="c-Editor__editor">
+                {blocks.map((block, index) => {
+                    const component = renderBlockType(block.type);
 
-                if (!component) {
-                    return 'none';
-                }
+                    if (!component) {
+                        return 'none';
+                    }
 
-                return (
-                    <Block key={block.id} onDelete={() => onDelete(index)}>
-                        {React.createElement(component)}
-                    </Block>
-                )
-            })}
+                    return (
+                        <Block key={block.id} onDelete={() => onDelete(index)}>
+                            {React.createElement(component)}
+                        </Block>
+                    )
+                })}
 
-            <div className="c-Editor__drop-indicator" data-visible={dropIndicator}>
-                <Message>
-                    <Message.Header>{element?.type}</Message.Header>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi atque aut debitis doloribus
-                        dolorum expedita facilis harum incidunt minima minus natus odit officia, officiis quibusdam
-                        sequi sit soluta vel veritatis.
-                    </p>
-                </Message>
+                <div className="c-Editor__editor__drop-indicator" data-visible={dropIndicator}>
+                    {element ? (
+                        <Message>
+                            <Message.Header>{element.type}</Message.Header>
+                            <p>
+                                {renderBlockType(element.type).description}
+                            </p>
+                        </Message>
+                    ) : null}
+                </div>
             </div>
         </div>
     )

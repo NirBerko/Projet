@@ -1,16 +1,20 @@
 import React             from "react";
 import { Route, Switch } from "react-router-dom";
 
-import { Template }  from "../components/Template";
+import { Template } from "../components/Template";
 
-import { Dashboard } from "./Dashboard";
+import { Dashboard }      from "./Dashboard";
 import { CreateTemplate } from "./CreateTemplate";
 
-export const Routes = () => (
+const widthTemplate = (children: any) => (props: any) => (
     <Template>
-        <Switch>
-            <Route path='/' exact component={Dashboard} />
-            <Route path='/template/new' exact component={CreateTemplate} />
-        </Switch>
+        {React.createElement(children, props)}
     </Template>
+);
+
+export const Routes = () => (
+    <Switch>
+        <Route path='/' exact component={widthTemplate(Dashboard)} />
+        <Route path='/template/new' exact component={widthTemplate(CreateTemplate)} />
+    </Switch>
 );

@@ -18,7 +18,7 @@ export const TextBox = () => {
     ));
 
     return (
-        <div className="c-TextBox">
+        <div className="b-TextBox">
             <Button onClick={makeBold} icon size="small">
                 <Icon name='bold' />
             </Button>
@@ -27,3 +27,5 @@ export const TextBox = () => {
         </div>
     )
 };
+
+TextBox.description = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi atque aut debitis doloribus dolorum expedita facilis harum incidunt minima minus natus odit officia, officiis quibusdam";
